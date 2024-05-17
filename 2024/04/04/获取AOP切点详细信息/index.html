@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://princessdalfour.github.io">
-  <title>Dalfoy’s Blog</title>
+  <title>在增强方法中获取AOP切点详细信息 | Dalfoy’s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Dalfoy’s Blog">
-<meta property="og:url" content="https://princessdalfour.github.io/index.html">
+  <meta name="description" content="在增强方法的形参列表中加入JoinPoint">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在增强方法中获取AOP切点详细信息">
+<meta property="og:url" content="https://princessdalfour.github.io/2024/04/04/%E8%8E%B7%E5%8F%96AOP%E5%88%87%E7%82%B9%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF/index.html">
 <meta property="og:site_name" content="Dalfoy’s Blog">
+<meta property="og:description" content="在增强方法的形参列表中加入JoinPoint">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-04T01:57:08.000Z">
+<meta property="article:modified_time" content="2024-04-12T18:25:45.277Z">
 <meta property="article:author" content="Dalfoy">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="AOP">
+<meta property="article:tag" content="学习记录">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Dalfoy’s Blog" type="application/atom+xml">
@@ -138,651 +145,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-RSETful" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-获取AOP切点详细信息" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/30/RSETful/">RSETful</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/30/RSETful/" class="archive-article-date">
-  	<time datetime="2024-04-29T17:00:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/30/RSETful/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC响应数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/12/SpringMVC%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE/">SpringMVC响应数据</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/12/SpringMVC%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE/" class="archive-article-date">
-  	<time datetime="2024-04-11T16:22:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>纯文本格式数据，JSON格式数据</p>
-        
-          <a class="article-more-a" href="/2024/04/12/SpringMVC%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/12/SpringMVC%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC六种参数类型传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/11/SpringMVC%E5%85%AD%E7%A7%8D%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E4%BC%A0%E9%80%92/">SpringMVC六种参数类型传递</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/11/SpringMVC%E5%85%AD%E7%A7%8D%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E4%BC%A0%E9%80%92/" class="archive-article-date">
-  	<time datetime="2024-04-10T18:22:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>普通类型，POJO类型，数组类型，集合类型，路径类型，JSON</p>
-        
-          <a class="article-more-a" href="/2024/04/11/SpringMVC%E5%85%AD%E7%A7%8D%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E4%BC%A0%E9%80%92/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/11/SpringMVC%E5%85%AD%E7%A7%8D%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E4%BC%A0%E9%80%92/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC设置请求路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/10/SpringMVC%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84/">SpringMVC设置请求路径</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/10/SpringMVC%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-  	<time datetime="2024-04-09T17:27:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> <code>@RequestMapping</code>注解</p>
-        
-          <a class="article-more-a" href="/2024/04/10/SpringMVC%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/10/SpringMVC%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC快速入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/10/SpringMVC%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">SpringMVC快速入门</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/10/SpringMVC%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2024-04-09T16:41:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> &nbsp;</p>
-        
-          <a class="article-more-a" href="/2024/04/10/SpringMVC%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/10/SpringMVC%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/07/Spring%E4%BA%8B%E5%8A%A1/">Spring事务</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/07/Spring%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2024-04-07T02:06:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>全部执行或全部不执行</p>
-<p>保证数据一致性和完整性</p>
-        
-          <a class="article-more-a" href="/2024/04/07/Spring%E4%BA%8B%E5%8A%A1/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/07/Spring%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring-AOP-环绕通知" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/06/Spring-AOP-%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5/">Spring AOP 环绕通知</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/06/Spring-AOP-%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5/" class="archive-article-date">
-  	<time datetime="2024-04-05T23:37:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> &nbsp;</p>
-        
-          <a class="article-more-a" href="/2024/04/06/Spring-AOP-%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AOP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/06/Spring-AOP-%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-切点表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/05/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F/">切点表达式</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/05/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2024-04-05T02:46:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> &nbsp;</p>
-        
-          <a class="article-more-a" href="/2024/04/05/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AOP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/05/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-获取AOP切点详细信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/04/%E8%8E%B7%E5%8F%96AOP%E5%88%87%E7%82%B9%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF/">在增强方法中获取AOP切点详细信息</a>
+    <h1 class="article-title" itemprop="name">
+      在增强方法中获取AOP切点详细信息
     </h1>
   
 
@@ -796,9 +166,53 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在增强方法的形参列表中加入<code>JoinPoint</code></p>
-        
-          <a class="article-more-a" href="/2024/04/04/%E8%8E%B7%E5%8F%96AOP%E5%88%87%E7%82%B9%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF/#more">更多 >></a>
-        
+<span id="more"></span>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before(&quot;execution(* com.dalfour.*.*(..))&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;方法前置...&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="目标方法信息"><a href="#目标方法信息" class="headerlink" title="目标方法信息"></a>目标方法信息</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before(&quot;execution(* com.dalfour.*.*(..))&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">    <span class="type">String</span> <span class="variable">modifiers</span> <span class="operator">=</span> Modifier.toString(joinPoint.getSignature().getModifiers());</span><br><span class="line">    <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">    Object[] args = joinPoint.getArgs();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>joinPoint.getTarget()</code>获取切点所属类的信息</li>
+<li><code>joinPoint.getSignature()</code>获取切点</li>
+<li><code>joinPoint.getSignature().getModifiers()</code>获取切点修饰符</li>
+<li><code>joinPoint.getSignature().getName()</code>获取切点方法名</li>
+<li><code>joinPoint.getArgs()</code>获取切点形参列表</li>
+</ul>
+<br>
+
+<h1 id="返回的结果"><a href="#返回的结果" class="headerlink" title="返回的结果"></a>返回的结果</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(* com.dalfour.*.*(..))&quot;, returning = &quot;result&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">after</span><span class="params">(JoinPoint joinPoint, <span class="type">int</span> result)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;[方法后置] | &quot;</span> + <span class="string">&quot;result = &quot;</span> + result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在注解中设置传递的形参对象<ul>
+<li><code>@AfterReturning(value = &quot;切点表达式&quot;, returning = &quot;形参名&quot;)</code></li>
+</ul>
+</li>
+<li>在形参列表中加入<code>JoinPoint</code>和<code>result</code><ul>
+<li>如果不需要获取切点信息可以不添加<code>JoinPoint</code></li>
+<li><code>result</code>默认为<code>Object</code>，可以根据实际情况改变</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h1 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AfterThrowing(value = &quot;execution(* com.dalfour.*.*(..))&quot;, throwing = &quot;e&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">error</span><span class="params">(JoinPoint joinPoint,Throwable e)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;[方法异常] | Throwable = &quot;</span> + e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在注解中设置传递的形参对象<ul>
+<li><code>@AfterThrowing(value = &quot;切点表达式&quot;, throwing = &quot;形参名&quot;)</code></li>
+</ul>
+</li>
+<li>在形参列表中加入<code>JoinPoint</code>和<code>Throwable</code><ul>
+<li>如果不需要获取切点信息可以不添加<code>JoinPoint</code></li>
+</ul>
+</li>
+</ul>
+
       
 
       
@@ -828,16 +242,33 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/04/%E8%8E%B7%E5%8F%96AOP%E5%88%87%E7%82%B9%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2024/04/05/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          切点表达式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/04/03/AOP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AOP快速入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -852,101 +283,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-AOP快速入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/AOP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">AOP快速入门</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/AOP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2024-04-03T00:37:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>实现给业务类添加日志信息</p>
-        
-          <a class="article-more-a" href="/2024/04/03/AOP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/#more">更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AOP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/AOP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E6%96%B9%E6%B3%95%E4%BF%A1%E6%81%AF"><span class="toc-number">1.</span> <span class="toc-text">目标方法信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">返回的结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">异常信息</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+
   
 
 
@@ -969,8 +331,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

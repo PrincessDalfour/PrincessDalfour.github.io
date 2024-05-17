@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://princessdalfour.github.io">
-  <title>Archives: 2024/5 | Dalfoy’s Blog</title>
+  <title>MyBatis的缓存 | Dalfoy’s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Dalfoy’s Blog">
-<meta property="og:url" content="https://princessdalfour.github.io/archives/2024/05/index.html">
+  <meta name="description" content="缓存用于提高当前查询速度，仅对查询生效。缓存会把当前查询的结果进行记录，等到下次再进行相同查询的时候，会直接从缓存中读取，不会从数据库直接访问。 MyBatis分为一级缓存和二级缓存，二者作用范围不一样。一级缓存默认开启，二级缓存需要手动开启。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis的缓存">
+<meta property="og:url" content="https://princessdalfour.github.io/2024/03/27/MyBatis%E7%9A%84%E7%BC%93%E5%AD%98/index.html">
 <meta property="og:site_name" content="Dalfoy’s Blog">
+<meta property="og:description" content="缓存用于提高当前查询速度，仅对查询生效。缓存会把当前查询的结果进行记录，等到下次再进行相同查询的时候，会直接从缓存中读取，不会从数据库直接访问。 MyBatis分为一级缓存和二级缓存，二者作用范围不一样。一级缓存默认开启，二级缓存需要手动开启。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-26T19:26:49.000Z">
+<meta property="article:modified_time" content="2024-04-02T01:53:32.725Z">
 <meta property="article:author" content="Dalfoy">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="MyBatis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Dalfoy’s Blog" type="application/atom+xml">
@@ -138,49 +144,199 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MyBatis的缓存" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/05/18/hello-world/" class="archive-article-date">
-  	<time datetime="2024-05-17T20:57:17.177Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/05/18/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      MyBatis的缓存
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2024/03/27/MyBatis%E7%9A%84%E7%BC%93%E5%AD%98/" class="archive-article-date">
+  	<time datetime="2024-03-26T19:26:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>缓存用于提高当前查询速度，仅对查询生效。缓存会把当前查询的结果进行记录，等到下次再进行相同查询的时候，会直接从缓存中读取，不会从数据库直接访问。</p>
+<p>MyBatis分为一级缓存和二级缓存，二者作用范围不一样。一级缓存默认开启，二级缓存需要手动开启。</p>
+<span id="more"></span>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<br>
+
+<h1 id="MyBatis的一级缓存"><a href="#MyBatis的一级缓存" class="headerlink" title="MyBatis的一级缓存"></a>MyBatis的一级缓存</h1><p>一级缓存是SqlSession级别的，通过同一个SqlSession的查询会被缓存，如果下次从<strong>同一个</strong>SqlSession查询相同的数据，会直接从缓存中读取，不会从数据库直接访问。</p>
+<ul>
+<li><p>举个例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">selectAll</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="comment">//创建sqlSession会话</span></span><br><span class="line">    <span class="type">SqlSession</span> <span class="variable">sqlSession</span> <span class="operator">=</span> sqlSessionFactory.openSession();</span><br><span class="line">    <span class="comment">//获取AdminMapper接口动态代理对象</span></span><br><span class="line">    <span class="type">AdminMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> sqlSession.getMapper(AdminMapper.class);</span><br><span class="line">    <span class="comment">//通过接口调用方法</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//第一次查询</span></span><br><span class="line">    List&lt;Admin&gt; adminList = mapper.selectAll();</span><br><span class="line">    <span class="keyword">for</span> (Admin admin : adminList)</span><br><span class="line">        System.out.println(<span class="string">&quot;admin = &quot;</span> + admin);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//第二次查询</span></span><br><span class="line">    List&lt;Admin&gt; adminList1 = mapper.selectAll();</span><br><span class="line">    System.out.println(<span class="string">&quot;adminList1 = &quot;</span> + adminList1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">03</span><span class="punctuation">:</span><span class="number">17</span><span class="punctuation">:</span><span class="number">00.479</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">03</span><span class="punctuation">:</span><span class="number">17</span><span class="punctuation">:</span><span class="number">00.509</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt; Parameters<span class="punctuation">:</span>  </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">03</span><span class="punctuation">:</span><span class="number">17</span><span class="punctuation">:</span><span class="number">00.543</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - &lt;==      Total<span class="punctuation">:</span> <span class="number">3</span> </span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">1</span><span class="punctuation">,</span> username=&#x27;张三&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">123456</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">15689609560</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">adminList1 = <span class="punctuation">[</span>Admin<span class="punctuation">&#123;</span>uid=<span class="number">1</span><span class="punctuation">,</span> username=&#x27;张三&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">123456</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">15689609560</span>&#x27;<span class="punctuation">&#125;</span><span class="punctuation">,</span> Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>这里进行了两次查询，可以从日志中看到从数据库进行查询的操作只有一次。</p>
+<br></li>
+</ul>
+<h2 id="一级查询失效的四种情况"><a href="#一级查询失效的四种情况" class="headerlink" title="一级查询失效的四种情况"></a>一级查询失效的四种情况</h2><h3 id="不同的SqlSession对应的是不同的一级缓存"><a href="#不同的SqlSession对应的是不同的一级缓存" class="headerlink" title="不同的SqlSession对应的是不同的一级缓存"></a>不同的SqlSession对应的是不同的一级缓存</h3><p>如果用的不是同一个SqlSession，那么无法从同一个一级缓存中获取数据</p>
+<br>
+
+<h3 id="同一个SqlSession但是查询条件不同"><a href="#同一个SqlSession但是查询条件不同" class="headerlink" title="同一个SqlSession但是查询条件不同"></a>同一个SqlSession但是查询条件不同</h3><p>非常easy啊，缓存的是查过的数据，没查过的就不能从缓存里差啦，只能从数据库里查。</p>
+<ul>
+<li><p>举个栗子：</p>
+<p>把上面代码的第二次查询方法更改一下，可以从日志中看到有两次从数据库进行查询的操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一次查询</span></span><br><span class="line">List&lt;Admin&gt; adminList = mapper.selectAll();</span><br><span class="line"><span class="keyword">for</span> (Admin admin : adminList)</span><br><span class="line">	System.out.println(<span class="string">&quot;admin = &quot;</span> + admin);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二次查询</span></span><br><span class="line"><span class="type">Admin</span> <span class="variable">admin</span> <span class="operator">=</span> mapper.selectByUid(<span class="number">3</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;admin = &quot;</span> + admin);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">18</span><span class="punctuation">:</span><span class="number">30.190</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">18</span><span class="punctuation">:</span><span class="number">30.220</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt; Parameters<span class="punctuation">:</span>  </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">18</span><span class="punctuation">:</span><span class="number">30.256</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - &lt;==      Total<span class="punctuation">:</span> <span class="number">3</span> </span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">1</span><span class="punctuation">,</span> username=&#x27;张三&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">123456</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">15689609560</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">18</span><span class="punctuation">:</span><span class="number">30.260</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectByUid - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin where uid = ? </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">18</span><span class="punctuation">:</span><span class="number">30.260</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectByUid - ==&gt; Parameters<span class="punctuation">:</span> <span class="number">3</span>(Integer) </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">18</span><span class="punctuation">:</span><span class="number">30.262</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectByUid - &lt;==      Total<span class="punctuation">:</span> <span class="number">1</span> </span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<br></li>
+</ul>
+<h3 id="同一个SqlSession两次查询期间执行了任意一次增删改操作"><a href="#同一个SqlSession两次查询期间执行了任意一次增删改操作" class="headerlink" title="同一个SqlSession两次查询期间执行了任意一次增删改操作"></a>同一个SqlSession两次查询期间执行了任意一次<strong>增删改</strong>操作</h3><p>因为增删改会导致数据库的的数据发生变化，会有可能导致数据库和缓存数据不一致。执行一次增删改查操作后会清空缓存。</p>
+<ul>
+<li><p>举个栗子：</p>
+<p>在两次查询中增加一次删除操作，可以从日志中看到有两次从数据库进行查询的操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一次查询</span></span><br><span class="line">List&lt;Admin&gt; adminList = mapper.selectAll();</span><br><span class="line"><span class="keyword">for</span> (Admin admin : adminList)</span><br><span class="line">	System.out.println(<span class="string">&quot;admin = &quot;</span> + admin);</span><br><span class="line"></span><br><span class="line"><span class="comment">//增删改</span></span><br><span class="line">mapper.delete(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//第二次查询</span></span><br><span class="line">List&lt;Admin&gt; adminList1 = mapper.selectAll();</span><br><span class="line">System.out.println(<span class="string">&quot;adminList1 = &quot;</span> + adminList1);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.292</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.329</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt; Parameters<span class="punctuation">:</span>  </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.365</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - &lt;==      Total<span class="punctuation">:</span> <span class="number">3</span> </span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">1</span><span class="punctuation">,</span> username=&#x27;张三&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">123456</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">15689609560</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.369</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.delete - ==&gt;  Preparing<span class="punctuation">:</span> delete from admin where uid = ? </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.369</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.delete - ==&gt; Parameters<span class="punctuation">:</span> <span class="number">1</span>(Integer) </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.371</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.delete - &lt;==    Updates<span class="punctuation">:</span> <span class="number">1</span> </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.371</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.371</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt; Parameters<span class="punctuation">:</span>  </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">26</span><span class="punctuation">:</span><span class="number">11.371</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - &lt;==      Total<span class="punctuation">:</span> <span class="number">2</span> </span><br><span class="line">adminList1 = <span class="punctuation">[</span>Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<br></li>
+</ul>
+<h3 id="两次查询之间通过sqlSession-clearCache-方法手动清空了缓存"><a href="#两次查询之间通过sqlSession-clearCache-方法手动清空了缓存" class="headerlink" title="两次查询之间通过sqlSession.clearCache()方法手动清空了缓存"></a>两次查询之间通过<code>sqlSession.clearCache()</code>方法手动清空了缓存</h3><p><code>sqlSession.clearCache()</code>仅对一级缓存生效。</p>
+<ul>
+<li><p>举个栗子：</p>
+<p>增加<code>sqlSession.clearCache()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一次查询</span></span><br><span class="line">List&lt;Admin&gt; adminList = mapper.selectAll();</span><br><span class="line"><span class="keyword">for</span> (Admin admin : adminList)</span><br><span class="line">	System.out.println(<span class="string">&quot;admin = &quot;</span> + admin);</span><br><span class="line"></span><br><span class="line"><span class="comment">//手动删除cache</span></span><br><span class="line">sqlSession.clearCache();</span><br><span class="line">    </span><br><span class="line"><span class="comment">//第二次查询</span></span><br><span class="line">List&lt;Admin&gt; adminList1 = mapper.selectAll();</span><br><span class="line">System.out.println(<span class="string">&quot;adminList1 = &quot;</span> + adminList1);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">36</span><span class="punctuation">:</span><span class="number">35.033</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">36</span><span class="punctuation">:</span><span class="number">35.078</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt; Parameters<span class="punctuation">:</span>  </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">36</span><span class="punctuation">:</span><span class="number">35.121</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - &lt;==      Total<span class="punctuation">:</span> <span class="number">3</span> </span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">1</span><span class="punctuation">,</span> username=&#x27;张三&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">123456</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">15689609560</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line">admin = Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">36</span><span class="punctuation">:</span><span class="number">35.124</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt;  Preparing<span class="punctuation">:</span> select * from admin </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">36</span><span class="punctuation">:</span><span class="number">35.125</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - ==&gt; Parameters<span class="punctuation">:</span>  </span><br><span class="line"><span class="punctuation">[</span>DEBUG<span class="punctuation">]</span> <span class="number">04</span><span class="punctuation">:</span><span class="number">36</span><span class="punctuation">:</span><span class="number">35.129</span> <span class="punctuation">[</span>main<span class="punctuation">]</span> M.m.A.selectAll - &lt;==      Total<span class="punctuation">:</span> <span class="number">3</span> </span><br><span class="line">adminList1 = <span class="punctuation">[</span>Admin<span class="punctuation">&#123;</span>uid=<span class="number">1</span><span class="punctuation">,</span> username=&#x27;张三&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">123456</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">15689609560</span>&#x27;<span class="punctuation">&#125;</span><span class="punctuation">,</span> Admin<span class="punctuation">&#123;</span>uid=<span class="number">3</span><span class="punctuation">,</span> username=&#x27;老马&#x27;<span class="punctuation">,</span> upassword=&#x27;<span class="number">666666</span>&#x27;<span class="punctuation">,</span> phone=&#x27;<span class="number">18874151577</span>&#x27;<span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br></li>
+</ul>
+<h1 id="MyBatis的二级缓存"><a href="#MyBatis的二级缓存" class="headerlink" title="MyBatis的二级缓存"></a>MyBatis的二级缓存</h1><p>二级缓存是SqlSessionFactory级别的，通过同一个SqlSessionFactory创建出来的SqlSession的查询会被缓存，如果下次查询相同的数据，会直接从缓存中读取，不会从数据库直接访问。</p>
+<br>
+
+<h2 id="二级缓存的开启条件"><a href="#二级缓存的开启条件" class="headerlink" title="二级缓存的开启条件"></a>二级缓存的开启条件</h2><p>二级缓存在两次查询期间执行了任意一次增删改操作后失效，增删改会同时清空一级缓存和二级缓存。</p>
+<br>
+
+<h3 id="在核心配置文件中，设置全局配置属性"><a href="#在核心配置文件中，设置全局配置属性" class="headerlink" title="在核心配置文件中，设置全局配置属性"></a>在核心配置文件中，设置全局配置属性</h3><p><code>cacheEnabled=&quot;true&quot;</code>，默认为<code>true</code>不需要更改</p>
+<br>
+
+<h3 id="在映射文件中设置标签"><a href="#在映射文件中设置标签" class="headerlink" title="在映射文件中设置标签&lt;cache/&gt;"></a>在映射文件中设置标签<code>&lt;cache/&gt;</code></h3><ol>
+<li>eviction属性 (缓存回收策略)：LRU(默认),FIFO,SOFT,WEAK</li>
+<li>flushInterval属性 (刷新时间ms)：默认不刷新，仅在语句调用时刷新</li>
+<li>size属性 (正整数)：可以储存多少个对象</li>
+<li>readOnly属性 (true&#x2F;false)：true为只读，不能被修改，性能高；false为读写，慢，安全，所以是默认</li>
+</ol>
+<br>
+
+<h3 id="二级缓存在SqlSession关闭或者提交之后有效"><a href="#二级缓存在SqlSession关闭或者提交之后有效" class="headerlink" title="二级缓存在SqlSession关闭或者提交之后有效"></a>二级缓存在SqlSession关闭或者提交之后有效</h3><p>没有关闭或提交SqlSession时，数据在一级缓存中；关闭或者提交了SqlSession后，数据会保存到二级缓存中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SqlSession.commit();</span><br><span class="line">SqlSession.close();</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="查询的数据所转换的实体类类型必须实现序列化的接口"><a href="#查询的数据所转换的实体类类型必须实现序列化的接口" class="headerlink" title="查询的数据所转换的实体类类型必须实现序列化的接口"></a>查询的数据所转换的实体类类型必须实现序列化的接口</h3><p><code>public class Student</code>后面加一个<code>implements Serializable</code></p>
+<p>变成<code>public class Studentimplements Serializable&#123;&#125;</code></p>
+<br>
+
+<h1 id="MyBatis缓存查询顺序"><a href="#MyBatis缓存查询顺序" class="headerlink" title="MyBatis缓存查询顺序"></a>MyBatis缓存查询顺序</h1><ol>
+<li>先查二级缓存，因为二级缓存范围大，里面可能有其他程序查出来的数据</li>
+<li>如果二级缓存没有命中，查一级缓存</li>
+<li>如果一级缓存没有命中，查数据库</li>
+<li>SqlSession关闭后，一级缓存中的数据会存入二级缓存</li>
+</ol>
+<br>
+
+<p><em><a target="_blank" rel="noopener" href="https://gitee.com/dalfour_admin/spring-study">项目地址</a></em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习记录</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2024/03/27/MyBatis%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MyBatis快速入门
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis%E7%9A%84%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text">MyBatis的一级缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%BA%A7%E6%9F%A5%E8%AF%A2%E5%A4%B1%E6%95%88%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%83%85%E5%86%B5"><span class="toc-number">1.1.</span> <span class="toc-text">一级查询失效的四种情况</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84SqlSession%E5%AF%B9%E5%BA%94%E7%9A%84%E6%98%AF%E4%B8%8D%E5%90%8C%E7%9A%84%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="toc-number">1.1.1.</span> <span class="toc-text">不同的SqlSession对应的是不同的一级缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AASqlSession%E4%BD%86%E6%98%AF%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E4%B8%8D%E5%90%8C"><span class="toc-number">1.1.2.</span> <span class="toc-text">同一个SqlSession但是查询条件不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AASqlSession%E4%B8%A4%E6%AC%A1%E6%9F%A5%E8%AF%A2%E6%9C%9F%E9%97%B4%E6%89%A7%E8%A1%8C%E4%BA%86%E4%BB%BB%E6%84%8F%E4%B8%80%E6%AC%A1%E5%A2%9E%E5%88%A0%E6%94%B9%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.3.</span> <span class="toc-text">同一个SqlSession两次查询期间执行了任意一次增删改操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E6%AC%A1%E6%9F%A5%E8%AF%A2%E4%B9%8B%E9%97%B4%E9%80%9A%E8%BF%87sqlSession-clearCache-%E6%96%B9%E6%B3%95%E6%89%8B%E5%8A%A8%E6%B8%85%E7%A9%BA%E4%BA%86%E7%BC%93%E5%AD%98"><span class="toc-number">1.1.4.</span> <span class="toc-text">两次查询之间通过sqlSession.clearCache()方法手动清空了缓存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis%E7%9A%84%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">MyBatis的二级缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E7%9A%84%E5%BC%80%E5%90%AF%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">二级缓存的开启条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%EF%BC%8C%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">2.1.1.</span> <span class="toc-text">在核心配置文件中，设置全局配置属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%A0%87%E7%AD%BE"><span class="toc-number">2.1.2.</span> <span class="toc-text">在映射文件中设置标签&lt;cache&#x2F;&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%9C%A8SqlSession%E5%85%B3%E9%97%AD%E6%88%96%E8%80%85%E6%8F%90%E4%BA%A4%E4%B9%8B%E5%90%8E%E6%9C%89%E6%95%88"><span class="toc-number">2.1.3.</span> <span class="toc-text">二级缓存在SqlSession关闭或者提交之后有效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%B0%E6%8D%AE%E6%89%80%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%AE%9E%E4%BD%93%E7%B1%BB%E7%B1%BB%E5%9E%8B%E5%BF%85%E9%A1%BB%E5%AE%9E%E7%8E%B0%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.1.4.</span> <span class="toc-text">查询的数据所转换的实体类类型必须实现序列化的接口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis%E7%BC%93%E5%AD%98%E6%9F%A5%E8%AF%A2%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">MyBatis缓存查询顺序</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -203,8 +359,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -276,6 +432,30 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习记录</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
